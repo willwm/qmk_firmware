@@ -24,25 +24,25 @@ enum encoder_names {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
         | Knob 1:       | Knob 2:       | Knob 3:       |
-        | (Vol -/+)     | (RGB Mode)    | (PgDn/PgUp)   |
-        | [Mute]        | [Toggle]      | [Play/Pause]  |
+        | (Vol -/+)     | (Zoom -/+)    | (PgDn/PgUp)   |
+        | [Mute]        | [Zoom Reset]  | [Home]        |
         |===============|===============|===============|
         | Hold: Layer 2 | Up            | Refresh       |
         | Left          | Down          | Right         |
      */
     [0] = LAYOUT(
-        KC_MUTE, RGB_TOG, KC_MPLY,
+        KC_MUTE, C(KC_0), KC_HOME,
         MO(1)  , KC_UP  , KC_WREF,
         KC_LEFT, KC_DOWN, KC_RGHT
     ),
     /*
-        | RESET         | N/A       | N/A           |
-        | Held: Layer 2 | Home      | N/A           |
+        | RESET         | N/A       | RGB Toggle    |
+        | Held: Layer 2 | Home      | RGB Mode +    |
         | Media Prev.   | End       | Media Next    |
      */
     [1] = LAYOUT(
-        RESET  , KC_TRNS, KC_TRNS,
-        _______, KC_HOME, KC_TRNS,
+        RESET  , KC_TRNS, RGB_TOG,
+        _______, KC_HOME, RGB_MOD,
         KC_MPRV, KC_END , KC_MNXT
     ),
 };
@@ -57,9 +57,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
     else if (index == _MIDDLE) {
         if (clockwise) {
-            tap_code16(RGB_RMOD);
+            tap_code16(C(KC_MINUS));
         } else {
-            tap_code16(RGB_MOD);
+            tap_code16(C(KC_EQUAL));
         }
     }
     else if (index == _RIGHT) {
