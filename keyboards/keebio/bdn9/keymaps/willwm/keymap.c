@@ -57,9 +57,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
     else if (index == _MIDDLE) {
         if (clockwise) {
-            tap_code(RGB_RMOD);
+            tap_code16(RGB_RMOD);
         } else {
-            tap_code(RGB_MOD);
+            tap_code16(RGB_MOD);
         }
     }
     else if (index == _RIGHT) {
