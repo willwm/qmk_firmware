@@ -23,24 +23,26 @@ enum encoder_names {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*
-        | Knob 1: Vol Dn/Up |      | Knob 2: Page Dn/Up |
-        | Press: Mute       | Home | Press: Play/Pause  |
-        | Hold: Layer 2     | Up   | RGB Mode           |
-        | Left              | Down | Right              |
+        | Knob 1:       | Knob 2:       | Knob 3:       |
+        | (Vol -/+)     | (RGB Mode)    | (PgDn/PgUp)   |
+        | [Mute]        | [Toggle]      | [Play/Pause]  |
+        |===============|===============|===============|
+        | Hold: Layer 2 | Up            | Refresh       |
+        | Left          | Down          | Right         |
      */
     [0] = LAYOUT(
-        KC_MUTE, KC_HOME, KC_MPLY,
-        MO(1)  , KC_UP  , RGB_MOD,
+        KC_MUTE, RGB_TOG, KC_MPLY,
+        MO(1)  , KC_UP  , KC_WREF,
         KC_LEFT, KC_DOWN, KC_RGHT
     ),
     /*
-        | RESET          | N/A  | Media Stop |
-        | Held: Layer 2  | Home | RGB Mode   |
-        | Media Previous | End  | Media Next |
+        | RESET         | N/A       | N/A           |
+        | Held: Layer 2 | Home      | N/A           |
+        | Media Prev.   | End       | Media Next    |
      */
     [1] = LAYOUT(
-        RESET  , BL_STEP, KC_STOP,
-        _______, KC_HOME, RGB_MOD,
+        RESET  , KC_TRNS, KC_TRNS,
+        _______, KC_HOME, KC_TRNS,
         KC_MPRV, KC_END , KC_MNXT
     ),
 };
@@ -55,9 +57,9 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     }
     else if (index == _MIDDLE) {
         if (clockwise) {
-            tap_code(KC_DOWN);
+            tap_code(RGB_RMOD);
         } else {
-            tap_code(KC_UP);
+            tap_code(RGB_MOD);
         }
     }
     else if (index == _RIGHT) {
